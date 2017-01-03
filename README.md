@@ -14,3 +14,6 @@
 # rmbuff
 ![rmbuff](https://github.com/m1yur1/ToS_Addon/wiki/image/rmbuff_02.gif)  
 掛かったbuffのうち、任意のものを取り除く。  
+
+#tsepprice
+スペルショップ、リペア、武器メンテナンス、防具メンテナンス、ジェムロースティング、エンチャントアーマ、スイッチジェンダの価格を三桁区切りで表示する。  

@@ -1,3 +1,7 @@
+# assortment_jp
+[assortment](https://github.com/axjv/Input-Switcher/tree/master/addons/assortment) の日本語ソート対応版。  
+2017-01-06現在の日本用クライアントプログラムのみ対応。  
+
 # chbtn
 ![chbtn](https://github.com/m1yur1/ToS_Addon/wiki/image/chbtn_00.jpg)  
 右上マップにチャネル変更ボタンを加える。  

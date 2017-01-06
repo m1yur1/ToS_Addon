@@ -1,5 +1,5 @@
 # assortment_jp
-[assortment](https://github.com/axjv/Input-Switcher/tree/master/addons/assortment) の日本語ソート対応版。  
+[assortment](https://github.com/axjv/Input-Switcher/tree/master/addons/assortment) の日本語環境ソート対応版。  
 2017-01-06現在の日本用クライアントプログラムのみ動作確認。  
 価格昇順ソートは、元々クライアントプログラムにある機能を使っているため、期待通りに実行できない場合がある。  
 

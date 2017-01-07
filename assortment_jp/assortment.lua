@@ -5,7 +5,8 @@ local settings = {}
 local default = {sortLocked = true}
 
 function ASSORTMENT_LOADSETTINGS()
-    local s, err = acutil.loadJSON("../addons/assortment/settings.json");
+    --local s, err = acutil.loadJSON("../addons/assortment/settings.json");
+    local s, err = acutil.loadJSON("../addons/assortment_jp/settings.json");
     if err then
         settings = default
     else
@@ -21,7 +22,8 @@ end
 
 function ASSORTMENT_SAVESETTINGS()
     table.sort(settings)
-    acutil.saveJSON("../addons/assortment/settings.json", settings);
+    --acutil.saveJSON("../addons/assortment/settings.json", settings);
+    acutil.saveJSON("../addons/assortment_jp/settings.json", settings);
 end
 
 function ASSORTMENT_ON_INIT(addon,frame)

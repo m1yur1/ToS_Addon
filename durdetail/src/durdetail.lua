@@ -1,18 +1,30 @@
 CHAT_SYSTEM('durdetail is loaded')
 
-local addon_name = 'durdetail'
-_G['ADDONS'] = _G['ADDONS'] or {}
-_G['ADDONS'][addon_name] = _G['ADDONS'][addon_name] or {}
-local g = _G['ADDONS'][addon_name]
+local acutil = require('acutil')
 
-g.font_size = 15
+local ADDON_NAME = 'durdetail'
+local SETTINGS_FILE_LOCATION = '../addons/' .. ADDON_NAME .. '/settings.json'
+
+_G['ADDONS'] = _G['ADDONS'] or {}
+_G['ADDONS'][ADDON_NAME] = _G['ADDONS'][ADDON_NAME] or {}
+local g = _G['ADDONS'][ADDON_NAME]
+
+g.settings = {}
+g.settings.font_size = 15
+g.settings.font_bold = true
+g.settings.font_outline = true
+g.settings.font_color = '#ffffff'
+g.settings.font_color_dur_zero = '#ffffff'
+g.settings.font_color_dur_under_10 = '#ffffff'
+
 
 function DURDETAIL_ON_INIT(addon, frame)
-	local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
-	slotSet:ClearIconAll()
+	g.settings = acutil.loadJSON(SETTINGS_FILE_LOCATION, g.settings, true)
+	local slotset = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
+	slotset:ClearIconAll()
 
-	for i = 0, slotSet:GetSlotCount() - 1 do
-		local slot = slotSet:GetSlotByIndex(i)
+	for i = 0, slotset:GetSlotCount() - 1 do
+		local slot = slotset:GetSlotByIndex(i)
 		local txt = slot:CreateOrGetControl('richtext', 'durdetail_txt_' .. i, 0, 0, 32, 16)
 		tolua.cast(txt, 'ui::CRichText')
 
@@ -40,8 +52,8 @@ function DURDETAIL_CLOSE(frame)
 end
 
 function DURDETAIL_ON_START(frame)
-	local initvalue = frame:GetValue()
-	if initvalue == 0 then
+	local frame_flag = frame:GetValue()
+	if frame_flag == 0 then
 		frame:SetValue(1)
 	end
 
@@ -53,11 +65,11 @@ function DURDETAIL_UPDATE(frame, notOpenFrame)
 		frame:ShowWindow(1)
 	end
 
-	local equiplist = session.GetEquipItemList()
-	local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
+	local equip_list = session.GetEquipItemList()
+	local slotset = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
 
-	for i = 0, slotSet:GetSlotCount() - 1 do
-		local slot = slotSet:GetSlotByIndex(i)
+	for i = 0, slotset:GetSlotCount() - 1 do
+		local slot = slotset:GetSlotByIndex(i)
 		local txt = slot:GetChild('durdetail_txt_' .. i)
 		tolua.cast(txt, 'ui::CRichText')
 
@@ -65,40 +77,40 @@ function DURDETAIL_UPDATE(frame, notOpenFrame)
 		slot:ShowWindow(0)
 	end
 
-	local slotcnt = 0
-	local nowvalue = frame:GetValue()
-	local someflag = 1
+	local slot_count = 0
+	local frame_flag = frame:GetValue()
+	local flag = 1
 
-	for i = 0, equiplist:Count() - 1 do
-		local equipItem = equiplist:Element(i)
-		local tempobj = equipItem:GetObject()
+	for i = 0, equip_list:Count() - 1 do
+		local equip_item = equip_list:Element(i)
+		local tmp_object = equip_item:GetObject()
 
-		if tempobj ~= nil then
-			local obj = GetIES(tempobj)
+		if tmp_object ~= nil then
+			local equip_object = GetIES(tmp_object)
 
-			if IS_DUR_ZERO(obj) then
-				local slot = slotSet:GetSlotByIndex(slotcnt)
-				local txt = slot:GetChild('durdetail_txt_' .. slotcnt)
+			if IS_DUR_ZERO(equip_object) then
+				local slot = slotset:GetSlotByIndex(slot_count)
+				local txt = slot:GetChild('durdetail_txt_' .. slot_count)
 				tolua.cast(txt, 'ui::CRichText')
 				DURDETAIL_SET_TXT(txt, 0)
-				slotcnt = slotcnt + 1
+				slot_count = slot_count + 1
 
-				if someflag < 3 then
-					someflag = 3
+				if flag < 3 then
+					flag = 3
 				end
 
 				txt:ShowWindow(1)
 				slot:ShowWindow(1)
 
-			elseif IS_DUR_UNDER_10PER(obj) then
-				local slot = slotSet:GetSlotByIndex(slotcnt)
-				local txt = slot:GetChild('durdetail_txt_' .. slotcnt)
+			elseif IS_DUR_UNDER_10PER(equip_object) then
+				local slot = slotset:GetSlotByIndex(slot_count)
+				local txt = slot:GetChild('durdetail_txt_' .. slot_count)
 				tolua.cast(txt, 'ui::CRichText')
-				DURDETAIL_SET_TXT(txt, obj.Dur)
-				slotcnt = slotcnt + 1
+				DURDETAIL_SET_TXT(txt, equip_object.Dur)
+				slot_count = slot_count + 1
 
-				if someflag < 2 then
-					someflag = 2
+				if flag < 2 then
+					flag = 2
 				end
 
 				txt:ShowWindow(1)
@@ -107,21 +119,29 @@ function DURDETAIL_UPDATE(frame, notOpenFrame)
 		end
 	end
 
-	if someflag == 1 then
+	if flag == 1 then
 		frame:SetValue(1)
-	elseif someflag == 2 and nowvalue < someflag then
+
+	elseif flag == 2 and frame_flag < flag then
 		frame:SetValue(2)
-	elseif someflag == 3 and nowvalue < someflag then
+
+	elseif flag == 3 and frame_flag < flag then
 		frame:SetValue(3)
 	end
 end
 
 function DURDETAIL_SET_TXT(txt, value)
+	local size = '{s' .. g.settings.font_size .. '}'
+	local bold = g.settings.font_bold and '{b}' or ''
+	local outline = g.settings.font_outline and '{ol}' or ''
+
 	if 0 == value then
-		txt:SetText('{s' .. g.font_size .. '}{#ffffff}0')
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_zero .. '}0')
+
 	elseif 100 > value then
-		txt:SetText('{s' .. g.font_size .. '}{#ffffff}*' .. value)
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_under_10 .. '}*' .. value)
+
 	else
-		txt:SetText('{s' .. g.font_size .. '}{#ffffff}' .. math.floor(value / 100))
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color .. '}' .. math.floor(value / 100))
 	end
 end

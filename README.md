@@ -16,6 +16,9 @@
 ![fpquit](https://github.com/m1yur1/ToS_Addon/wiki/image/fpquit_00.jpg)  
 画面右下メニューの『ゲーム終了』『ログアウト』『キャラクター選択』選択時、確認を取る。  
 
+# removeqst
+クイックスロットのツールチップ表示を抑制する。  
+
 # rmbuff
 ![rmbuff](https://github.com/m1yur1/ToS_Addon/wiki/image/rmbuff_02.gif)  
 掛かったbuffのうち、任意のものを取り除く。  

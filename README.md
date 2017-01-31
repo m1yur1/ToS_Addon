@@ -16,6 +16,10 @@
 ![fpquit](https://github.com/m1yur1/ToS_Addon/wiki/image/fpquit_00.jpg)  
 画面右下メニューの『ゲーム終了』『ログアウト』『キャラクター選択』選択時、確認を取る。  
 
+# qsguidfix
+💩検証不十分。
+💩『クイックスロットに呪文書を入れて、その呪文書をインベントリ内で移動すると、クイックスロットの呪文書が変になる』のを防ぐかもしらない。
+
 # removeqst
 クイックスロットのツールチップ表示を抑制する。  
 
@@ -23,5 +27,5 @@
 ![rmbuff](https://github.com/m1yur1/ToS_Addon/wiki/image/rmbuff_02.gif)  
 掛かったbuffのうち、任意のものを取り除く。  
 
-#tsepprice
+# tsepprice
 スペルショップ、リペア、武器メンテナンス、防具メンテナンス、ジェムロースティング、エンチャントアーマー、スイッチジェンダーの価格を三桁区切りで表示する。  

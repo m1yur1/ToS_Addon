@@ -52,10 +52,22 @@ g.SortInventoryBy = function (sort_type, order)
 	local inventoryGbox = GET_CHILD(ui.GetFrame('inventory'), 'inventoryGbox', 'ui::CGroupBox')
 	sort_type = string.lower(sort_type)
 	order = string.lower(order)
+	local inventory_type_count = 1
+	local treeGbox = ''
+	local inventree = ''
 
-	for inventory_type_index = 1, #g_invenTypeStrList do
-		local treeGbox = GET_CHILD(inventoryGbox, 'treeGbox_' .. g_invenTypeStrList[inventory_type_index], 'ui::CGroupBox')
-		local inventree = GET_CHILD(treeGbox, 'inventree_' .. g_invenTypeStrList[inventory_type_index], 'ui::CTreeControl')
+	if g_invenTypeStrList then 
+		inventory_type_count = #g_invenTypeStrList
+	end
+
+	for inventory_type_index = 1, inventory_type_count do
+		if g_invenTypeStrList then
+			treeGbox = GET_CHILD(inventoryGbox, 'treeGbox_' .. g_invenTypeStrList[inventory_type_index], 'ui::CGroupBox')
+			inventree = GET_CHILD(treeGbox, 'inventree_' .. g_invenTypeStrList[inventory_type_index], 'ui::CTreeControl')
+		else
+			treeGbox = GET_CHILD(inventoryGbox, 'treeGbox', 'ui::CGroupBox')
+			inventree = GET_CHILD(treeGbox, 'inventree', 'ui::CTreeControl')
+		end
 
 		for slotset_index = 1, #SLOTSET_NAMELIST do
 			local slotset = GET_CHILD(inventree, SLOTSET_NAMELIST[slotset_index], 'ui::CSlotSet')
@@ -93,6 +105,14 @@ g.CreateCompareData = function (slotset, sort_type, remove_locked_item)
 				compare_data[item_count] = {}
 				compare_data[item_count].invIndex = item.invIndex
 				local item_name = dictionary.ReplaceDicIDInCompStr(item_class.Name)
+
+				if item_class.Icon == 'GolemMagicItem1' and item_class.SkillType ~= 0 then
+					local skill_class = GetClassByType('Skill', item_class.SkillType)
+
+					if skill_class ~= nil and skill_class.Name ~= nil then
+						item_name = item_name .. dictionary.ReplaceDicIDInCompStr(skill_class.Name)
+					end
+				end
 
 				if sort_type == 'price' then
 					local item_property = geItemTable.GetPropByName(item_class.ClassName)

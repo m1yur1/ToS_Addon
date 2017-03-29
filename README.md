@@ -1,6 +1,7 @@
 # assortment_jp
 [assortment](https://github.com/axjv/Input-Switcher/tree/master/addons/assortment) の日本語環境ソート対応版。  
 2017-01-06現在の日本用クライアントプログラムのみ動作確認。  
+2017-03-29現在、正常に動作しないハズ(未確認)。  
 価格昇順ソートは、元々クライアントプログラムにある機能を使っているため、期待通りに実行できない場合がある。  
 
 # chbtn
@@ -30,6 +31,10 @@ addons\\quiettyping\\append.jsonを編集する事で、静的な新規UIへの�
 # rmbuff
 ![rmbuff](https://github.com/m1yur1/ToS_Addon/wiki/image/rmbuff_02.gif)  
 掛かったbuffのうち、任意のものを取り除く。  
+
+# sortexample
+assortment的なアレ。  
+2017-03-29現在の日本用クライアントプログラムで動作するかもしらない(未確認)。  
 
 # tsepprice
 スペルショップ、リペア、武器メンテナンス、防具メンテナンス、ジェムロースティング、エンチャントアーマー、スイッチジェンダーの価格を三桁区切りで表示する。  

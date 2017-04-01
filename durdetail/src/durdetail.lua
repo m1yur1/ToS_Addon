@@ -136,12 +136,12 @@ function DURDETAIL_SET_TXT(txt, value)
 	local outline = g.settings.font_outline and '{ol}' or ''
 
 	if 0 == value then
-		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_zero .. '}0')
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_zero .. '}0', 'quickiconfont', 'right', 'bottom', -2, 1)
 
 	elseif 100 > value then
-		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_under_10 .. '}*' .. value)
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color_dur_under_10 .. '}*' .. value, 'quickiconfont', 'right', 'bottom', -2, 1)
 
 	else
-		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color .. '}' .. math.floor(value / 100))
+		txt:SetText(size .. bold .. outline .. '{' .. g.settings.font_color .. '}' .. math.floor(value / 100), 'quickiconfont', 'right', 'bottom', -2, 1)
 	end
 end

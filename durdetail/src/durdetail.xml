@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uiframe name="durdetail" x="" y="0" width="155" height="155">
     <frame fasthide="true" margin="470 50 0 0" layout_gravity="left top" keyboardselectframe="false"/>
-    <layer layerlevel="1"/>
+    <layer layerlevel="3"/>
     <input hittest="true" hittestframe="false" moveable="false"/>
     <draw drawtitlebar="false" drawframe="false"/>
     <option visible="true" closebutton="false" autoopen="true" hideable="false" alwaysVisible="true"/>

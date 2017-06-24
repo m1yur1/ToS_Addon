@@ -28,6 +28,10 @@ addons\\quiettyping\\append.jsonを編集する事で、静的な新規UIへの�
 # removeqst
 クイックスロットのツールチップ表示を抑制する。  
 
+# repairplus
+鍛冶屋及びスクワイアで修理を行う際のフレームで、耐久度をゲージで表す。  
+![repairplus](https://github.com/m1yur1/ToS_Addon/wiki/image/repairplus_00.gif)
+
 # rmbuff
 ![rmbuff](https://github.com/m1yur1/ToS_Addon/wiki/image/rmbuff_02.gif)  
 掛かったbuffのうち、任意のものを取り除く。  
